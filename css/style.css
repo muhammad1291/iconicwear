@@ -1,0 +1,758 @@
+/* ============================================================
+   ICONICWEAR — STYLESHEET
+   Design tokens live at the top. Change colors, fonts and
+   spacing scale here without touching layout rules below.
+   ============================================================ */
+
+:root {
+  /* Color */
+  --black: #0b0b0a;
+  --charcoal: #161512;
+  --charcoal-2: #1f1e1a;
+  --white: #f3f1ea;
+  --grey: #938e81;
+  --grey-dim: #55524a;
+  --hairline: rgba(243, 241, 234, 0.14);
+  --hairline-strong: rgba(243, 241, 234, 0.28);
+
+  /* Type */
+  --font-display: "Anton", "Archivo Black", Impact, sans-serif;
+  --font-body: "Archivo", "Helvetica Neue", Arial, sans-serif;
+
+  /* Layout */
+  --max-width: 1440px;
+  --gutter: clamp(20px, 4vw, 64px);
+  --nav-height: 76px;
+
+  /* Motion */
+  --ease: cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+/* ---------- Reset ---------- */
+*, *::before, *::after { box-sizing: border-box; }
+html { scroll-behavior: smooth; }
+body, h1, h2, h3, h4, p, figure { margin: 0; }
+ul { list-style: none; margin: 0; padding: 0; }
+a { color: inherit; text-decoration: none; }
+img { max-width: 100%; display: block; }
+button { font: inherit; color: inherit; background: none; border: none; cursor: pointer; }
+
+@media (prefers-reduced-motion: reduce) {
+  html { scroll-behavior: auto; }
+  *, *::before, *::after {
+    animation-duration: 0.001ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.001ms !important;
+    scroll-behavior: auto !important;
+  }
+}
+
+body {
+  background: var(--black);
+  color: var(--white);
+  font-family: var(--font-body);
+  font-size: 16px;
+  line-height: 1.6;
+  -webkit-font-smoothing: antialiased;
+}
+
+::selection { background: var(--white); color: var(--black); }
+
+:focus-visible {
+  outline: 2px solid var(--white);
+  outline-offset: 3px;
+}
+
+.container {
+  max-width: var(--max-width);
+  margin: 0 auto;
+  padding: 0 var(--gutter);
+}
+
+/* ---------- Type helpers ---------- */
+.display {
+  font-family: var(--font-display);
+  font-weight: 400;
+  text-transform: uppercase;
+  letter-spacing: 0.01em;
+  line-height: 0.92;
+}
+
+.eyebrow {
+  font-family: var(--font-body);
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.14em;
+  font-size: 0.75rem;
+  color: var(--grey);
+}
+
+.lede {
+  font-size: clamp(1.05rem, 1.6vw, 1.25rem);
+  color: var(--grey);
+  max-width: 46ch;
+}
+
+/* ---------- Buttons ---------- */
+.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  padding: 16px 32px;
+  font-family: var(--font-body);
+  font-weight: 600;
+  font-size: 0.8rem;
+  text-transform: uppercase;
+  letter-spacing: 0.12em;
+  border: 1px solid var(--white);
+  transition: background-color 0.35s var(--ease), color 0.35s var(--ease), border-color 0.35s var(--ease);
+  white-space: nowrap;
+}
+
+.btn-primary {
+  background: var(--white);
+  color: var(--black);
+}
+.btn-primary:hover { background: transparent; color: var(--white); }
+
+.btn-outline {
+  background: transparent;
+  color: var(--white);
+}
+.btn-outline:hover { background: var(--white); color: var(--black); }
+
+.btn-block { width: 100%; }
+
+/* ============================================================
+   NAVIGATION
+   ============================================================ */
+.site-nav {
+  position: fixed;
+  top: 0; left: 0; right: 0;
+  z-index: 100;
+  height: var(--nav-height);
+  display: flex;
+  align-items: center;
+  background: transparent;
+  border-bottom: 1px solid transparent;
+  transition: background-color 0.4s var(--ease), border-color 0.4s var(--ease);
+}
+
+.site-nav.is-scrolled {
+  background: rgba(11, 11, 10, 0.92);
+  backdrop-filter: blur(8px);
+  border-bottom-color: var(--hairline);
+}
+
+.site-nav .container {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 100%;
+}
+
+.nav-logo {
+  display: flex;
+  align-items: center;
+  height: 40px;
+}
+.nav-logo img { height: 100%; width: auto; }
+.nav-logo .logo-fallback {
+  font-family: var(--font-display);
+  font-size: 1.4rem;
+  text-transform: uppercase;
+  letter-spacing: 0.02em;
+}
+
+.nav-links {
+  display: flex;
+  align-items: center;
+  gap: clamp(20px, 2.5vw, 44px);
+}
+
+.nav-links a {
+  font-size: 0.78rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.12em;
+  color: var(--grey);
+  position: relative;
+  padding-bottom: 4px;
+  transition: color 0.3s var(--ease);
+}
+.nav-links a::after {
+  content: "";
+  position: absolute;
+  left: 0; bottom: 0;
+  width: 0%;
+  height: 1px;
+  background: var(--white);
+  transition: width 0.3s var(--ease);
+}
+.nav-links a:hover,
+.nav-links a[aria-current="page"] { color: var(--white); }
+.nav-links a:hover::after,
+.nav-links a[aria-current="page"]::after { width: 100%; }
+
+.nav-toggle {
+  display: none;
+  flex-direction: column;
+  gap: 5px;
+  width: 30px;
+  padding: 8px 0;
+}
+.nav-toggle span {
+  display: block;
+  height: 1.5px;
+  width: 100%;
+  background: var(--white);
+  transition: transform 0.3s var(--ease), opacity 0.3s var(--ease);
+}
+.nav-toggle[aria-expanded="true"] span:nth-child(1) { transform: translateY(6.5px) rotate(45deg); }
+.nav-toggle[aria-expanded="true"] span:nth-child(2) { opacity: 0; }
+.nav-toggle[aria-expanded="true"] span:nth-child(3) { transform: translateY(-6.5px) rotate(-45deg); }
+
+@media (max-width: 860px) {
+  .nav-toggle { display: flex; }
+  .nav-links {
+    position: fixed;
+    inset: var(--nav-height) 0 0 0;
+    background: var(--black);
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: flex-start;
+    padding: 48px var(--gutter);
+    gap: 28px;
+    transform: translateY(-8px);
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.3s var(--ease), transform 0.3s var(--ease);
+  }
+  .nav-links.is-open {
+    opacity: 1;
+    transform: translateY(0);
+    pointer-events: auto;
+  }
+  .nav-links a { font-size: 1.4rem; }
+}
+
+/* ============================================================
+   HERO SLIDESHOW
+   ============================================================ */
+.hero {
+  position: relative;
+  height: 100svh;
+  min-height: 560px;
+  overflow: hidden;
+  background: var(--black);
+}
+
+.hero-slides {
+  position: absolute;
+  inset: 0;
+}
+
+.hero-slide {
+  position: absolute;
+  inset: 0;
+  opacity: 0;
+  transition: opacity 1.6s var(--ease);
+}
+.hero-slide.is-active { opacity: 1; }
+
+.hero-slide img,
+.hero-slide .placeholder {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center 30%;
+}
+
+.hero::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(180deg, rgba(11,11,10,0.55) 0%, rgba(11,11,10,0.25) 32%, rgba(11,11,10,0.55) 78%, rgba(11,11,10,0.92) 100%);
+  pointer-events: none;
+}
+
+.hero-content {
+  position: relative;
+  z-index: 2;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  padding: 0 var(--gutter) 88px;
+  max-width: var(--max-width);
+  margin: 0 auto;
+}
+
+.hero-eyebrow {
+  font-family: var(--font-body);
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.16em;
+  font-size: 0.82rem;
+  color: var(--grey);
+  margin-bottom: 18px;
+}
+
+.hero-heading {
+  font-size: clamp(3rem, 9vw, 7.5rem);
+  max-width: 16ch;
+}
+
+.hero-sub {
+  margin-top: 22px;
+  font-size: clamp(1rem, 1.6vw, 1.2rem);
+  color: var(--grey);
+  max-width: 40ch;
+}
+
+.hero-cta {
+  margin-top: 40px;
+  display: flex;
+  align-items: center;
+  gap: 24px;
+}
+
+.hero-indicators {
+  position: absolute;
+  right: var(--gutter);
+  bottom: 40px;
+  z-index: 3;
+  display: flex;
+  gap: 10px;
+}
+.hero-indicator {
+  width: 28px;
+  height: 2px;
+  background: rgba(243,241,234,0.3);
+  transition: background-color 0.3s var(--ease);
+}
+.hero-indicator.is-active { background: var(--white); }
+
+/* ============================================================
+   SECTIONS
+   ============================================================ */
+.section {
+  padding: clamp(72px, 10vw, 140px) 0;
+}
+.section-tight { padding: clamp(48px, 6vw, 88px) 0; }
+.section-charcoal { background: var(--charcoal); }
+.section-border-top { border-top: 1px solid var(--hairline); }
+
+.section-head {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: flex-end;
+  justify-content: space-between;
+  gap: 24px;
+  margin-bottom: clamp(40px, 5vw, 72px);
+}
+
+.section-heading {
+  font-size: clamp(2.2rem, 5vw, 4rem);
+}
+
+/* fade-in on scroll */
+.reveal {
+  opacity: 0;
+  transform: translateY(24px);
+  transition: opacity 0.8s var(--ease), transform 0.8s var(--ease);
+}
+.reveal.is-visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* ============================================================
+   PRODUCT GRID / CARDS
+   ============================================================ */
+.product-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 1px;
+  background: var(--hairline);
+  border-top: 1px solid var(--hairline);
+  border-bottom: 1px solid var(--hairline);
+}
+
+.product-card {
+  position: relative;
+  background: var(--black);
+  display: flex;
+  flex-direction: column;
+}
+
+.product-card-media {
+  position: relative;
+  aspect-ratio: 4 / 5;
+  overflow: hidden;
+  background: var(--charcoal);
+}
+
+.product-card-media img,
+.product-card-media .placeholder {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 0.8s var(--ease);
+}
+.product-card:hover .product-card-media img,
+.product-card:hover .product-card-media .placeholder { transform: scale(1.04); }
+
+.product-status {
+  position: absolute;
+  top: 20px;
+  left: 20px;
+  z-index: 2;
+  font-size: 0.7rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  padding: 7px 14px;
+  background: rgba(11,11,10,0.75);
+  border: 1px solid var(--hairline-strong);
+  backdrop-filter: blur(4px);
+}
+.product-status[data-status="AVAILABLE"] { color: var(--white); }
+.product-status[data-status="COMING SOON"] { color: var(--grey); }
+.product-status[data-status="SOLD OUT"] { color: var(--grey-dim); text-decoration: line-through; }
+
+.product-card-body {
+  padding: 28px clamp(20px, 3vw, 40px) 36px;
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+}
+
+.product-number {
+  font-family: var(--font-display);
+  font-size: clamp(2.5rem, 4vw, 3.6rem);
+  color: transparent;
+  -webkit-text-stroke: 1px var(--hairline-strong);
+  line-height: 1;
+  margin-bottom: 8px;
+}
+
+.product-name {
+  font-size: clamp(1.4rem, 2vw, 1.9rem);
+  font-family: var(--font-display);
+  text-transform: uppercase;
+  margin-bottom: 6px;
+}
+
+.product-category {
+  color: var(--grey);
+  font-size: 0.85rem;
+  margin-bottom: 16px;
+}
+
+.product-card-desc {
+  color: var(--grey);
+  font-size: 0.95rem;
+  max-width: 42ch;
+  margin-bottom: 24px;
+}
+
+.product-card-body .btn { align-self: flex-start; margin-top: auto; }
+
+@media (max-width: 760px) {
+  .product-grid { grid-template-columns: 1fr; }
+}
+
+/* ============================================================
+   PRODUCT DETAIL PAGE
+   ============================================================ */
+.product-detail {
+  padding-top: var(--nav-height);
+}
+
+.product-detail-layout {
+  display: grid;
+  grid-template-columns: 1.15fr 0.85fr;
+  gap: clamp(24px, 4vw, 64px);
+  align-items: start;
+}
+
+.product-gallery-main {
+  aspect-ratio: 4 / 5;
+  overflow: hidden;
+  background: var(--charcoal);
+  margin-bottom: 12px;
+}
+.product-gallery-main img,
+.product-gallery-main .placeholder {
+  width: 100%; height: 100%; object-fit: cover;
+}
+
+.product-gallery-thumbs {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(80px, 1fr));
+  gap: 10px;
+}
+.product-gallery-thumbs button {
+  aspect-ratio: 1;
+  overflow: hidden;
+  background: var(--charcoal);
+  border: 1px solid transparent;
+  padding: 0;
+}
+.product-gallery-thumbs button.is-active { border-color: var(--white); }
+.product-gallery-thumbs img,
+.product-gallery-thumbs .placeholder {
+  width: 100%; height: 100%; object-fit: cover;
+}
+
+.product-info-panel {
+  position: sticky;
+  top: calc(var(--nav-height) + 32px);
+  padding-top: 8px;
+}
+
+.product-info-number {
+  font-family: var(--font-display);
+  color: var(--grey);
+  letter-spacing: 0.08em;
+  margin-bottom: 14px;
+  font-size: 0.95rem;
+}
+
+.product-info-name {
+  font-size: clamp(2rem, 3.4vw, 3rem);
+  margin-bottom: 18px;
+}
+
+.product-info-price {
+  font-size: 1.15rem;
+  margin-bottom: 22px;
+  color: var(--white);
+}
+.product-info-price .tbc { color: var(--grey); font-size: 0.9rem; }
+
+.product-info-desc {
+  color: var(--grey);
+  margin-bottom: 32px;
+  max-width: 52ch;
+}
+
+.spec-table {
+  border-top: 1px solid var(--hairline);
+  margin-bottom: 32px;
+}
+.spec-row {
+  display: flex;
+  justify-content: space-between;
+  gap: 20px;
+  padding: 14px 0;
+  border-bottom: 1px solid var(--hairline);
+  font-size: 0.92rem;
+}
+.spec-row dt { color: var(--grey); }
+.spec-row dd { text-align: right; }
+
+.size-list {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-bottom: 32px;
+}
+.size-chip {
+  border: 1px solid var(--hairline-strong);
+  padding: 8px 16px;
+  font-size: 0.8rem;
+  letter-spacing: 0.06em;
+  color: var(--grey);
+}
+
+@media (max-width: 900px) {
+  .product-detail-layout { grid-template-columns: 1fr; }
+  .product-info-panel { position: static; }
+}
+
+/* ============================================================
+   PAGE HEADER (About / Contact / Shipping / Returns)
+   ============================================================ */
+.page-header {
+  padding: calc(var(--nav-height) + 64px) 0 48px;
+}
+.page-header .display { font-size: clamp(2.6rem, 6vw, 5rem); }
+
+/* ============================================================
+   ABOUT PAGE
+   ============================================================ */
+.about-image {
+  aspect-ratio: 16 / 9;
+  overflow: hidden;
+  background: var(--charcoal);
+  margin: clamp(40px, 6vw, 80px) 0;
+}
+.about-image img,
+.about-image .placeholder {
+  width: 100%; height: 100%; object-fit: cover;
+}
+
+.prose {
+  max-width: 68ch;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  color: var(--grey);
+  font-size: 1.05rem;
+}
+.prose strong { color: var(--white); }
+
+.two-col {
+  display: grid;
+  grid-template-columns: 0.8fr 1.2fr;
+  gap: clamp(24px, 5vw, 80px);
+}
+@media (max-width: 800px) {
+  .two-col { grid-template-columns: 1fr; }
+}
+
+/* ============================================================
+   CONTACT / SOCIAL BUTTONS
+   ============================================================ */
+.contact-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 16px;
+  margin-top: 36px;
+}
+
+.social-row {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  margin-top: 16px;
+}
+.social-link {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 18px 22px;
+  border: 1px solid var(--hairline);
+  transition: border-color 0.3s var(--ease), background-color 0.3s var(--ease);
+  font-size: 0.85rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+}
+.social-link:hover { border-color: var(--hairline-strong); background: var(--charcoal); }
+.social-link svg { width: 20px; height: 20px; flex-shrink: 0; }
+.social-handle { color: var(--grey); font-weight: 400; text-transform: none; letter-spacing: 0; margin-left: auto; font-size: 0.85rem; }
+
+/* ============================================================
+   POLICY PAGES (Shipping / Returns)
+   ============================================================ */
+.policy-note {
+  display: inline-block;
+  font-size: 0.7rem;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--grey-dim);
+  border: 1px solid var(--hairline);
+  padding: 6px 12px;
+  margin-bottom: 40px;
+}
+
+.policy-list {
+  display: flex;
+  flex-direction: column;
+}
+.policy-item {
+  padding: 32px 0;
+  border-top: 1px solid var(--hairline);
+  display: grid;
+  grid-template-columns: 0.6fr 1.4fr;
+  gap: 24px;
+}
+.policy-item:last-child { border-bottom: 1px solid var(--hairline); }
+.policy-item h3 {
+  font-family: var(--font-display);
+  font-size: 1.3rem;
+  text-transform: uppercase;
+}
+.policy-item p { color: var(--grey); max-width: 60ch; }
+
+@media (max-width: 700px) {
+  .policy-item { grid-template-columns: 1fr; gap: 10px; }
+}
+
+/* ============================================================
+   PLACEHOLDER IMAGE (when a path is missing/broken)
+   ============================================================ */
+.placeholder {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background:
+    repeating-linear-gradient(135deg, var(--charcoal), var(--charcoal) 12px, var(--charcoal-2) 12px, var(--charcoal-2) 24px);
+  color: var(--grey-dim);
+  font-family: var(--font-body);
+  font-size: 0.75rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.12em;
+  text-align: center;
+  padding: 20px;
+}
+
+/* ============================================================
+   FOOTER
+   ============================================================ */
+.site-footer {
+  background: var(--black);
+  border-top: 1px solid var(--hairline);
+  padding: clamp(56px, 7vw, 96px) 0 32px;
+}
+
+.footer-top {
+  display: grid;
+  grid-template-columns: 1.4fr 0.8fr 0.8fr 1fr;
+  gap: 40px;
+  padding-bottom: 56px;
+}
+
+.footer-brand .display { font-size: 1.8rem; margin-bottom: 14px; }
+.footer-brand p { color: var(--grey); max-width: 32ch; }
+
+.footer-col h4 {
+  font-size: 0.72rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.12em;
+  color: var(--grey);
+  margin-bottom: 18px;
+}
+.footer-col ul { display: flex; flex-direction: column; gap: 12px; }
+.footer-col a {
+  font-size: 0.9rem;
+  color: var(--white);
+  transition: color 0.3s var(--ease);
+}
+.footer-col a:hover { color: var(--grey); }
+
+.footer-bottom {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  gap: 12px;
+  padding-top: 28px;
+  border-top: 1px solid var(--hairline);
+  color: var(--grey-dim);
+  font-size: 0.78rem;
+  letter-spacing: 0.03em;
+}
+
+@media (max-width: 860px) {
+  .footer-top { grid-template-columns: 1fr 1fr; }
+}
+@media (max-width: 560px) {
+  .footer-top { grid-template-columns: 1fr; gap: 32px; }
+}

@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Returns & Exchanges — ICONICWEAR</title>
+  <meta name="description" content="Returns and exchanges information for ICONICWEAR orders.">
+  <meta property="og:title" content="Returns & Exchanges — ICONICWEAR">
+  <meta property="og:type" content="website">
+  <link rel="icon" href="assets/images/icons/favicon.svg" type="image/svg+xml">
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Anton&family=Archivo:wght@400;500;600;700&display=swap" rel="stylesheet">
+
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+
+  <nav class="site-nav" id="site-nav"></nav>
+
+  <main>
+    <header class="page-header container">
+      <p class="eyebrow reveal is-visible" style="margin-bottom:18px;">Policy</p>
+      <h1 class="display reveal is-visible" id="returns-heading"></h1>
+    </header>
+
+    <section class="section-tight">
+      <div class="container" style="max-width:760px;">
+        <span class="policy-note" id="returns-note"></span>
+        <div class="policy-list" id="returns-list"></div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="site-footer" id="site-footer"></footer>
+
+  <script src="js/content.js"></script>
+  <script src="js/main.js"></script>
+  <script>
+    document.addEventListener("DOMContentLoaded", () => {
+      const r = CONTENT.returns;
+      document.getElementById("returns-heading").textContent = r.heading;
+      document.getElementById("returns-note").textContent = r.note;
+      document.getElementById("returns-list").innerHTML = r.sections
+        .map(sec => `<div class="policy-item"><h3>${sec.title}</h3><p>${sec.body}</p></div>`)
+        .join("");
+    });
+  </script>
+</body>
+</html>

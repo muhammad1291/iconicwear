@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Contact — ICONICWEAR</title>
+  <meta name="description" content="Get in touch with ICONICWEAR for questions, collaborations or general enquiries.">
+  <meta property="og:title" content="Contact — ICONICWEAR">
+  <meta property="og:description" content="Get in touch with ICONICWEAR for questions, collaborations or general enquiries.">
+  <meta property="og:type" content="website">
+  <link rel="icon" href="assets/images/icons/favicon.svg" type="image/svg+xml">
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Anton&family=Archivo:wght@400;500;600;700&display=swap" rel="stylesheet">
+
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+
+  <nav class="site-nav" id="site-nav"></nav>
+
+  <main>
+    <header class="page-header container">
+      <p class="eyebrow reveal is-visible" style="margin-bottom:18px;">Get in touch</p>
+      <h1 class="display reveal is-visible" id="contact-heading"></h1>
+      <p class="lede reveal is-visible" id="contact-sub" style="margin-top:20px;"></p>
+    </header>
+
+    <section class="section-tight">
+      <div class="container" style="max-width:640px;">
+        <div class="contact-actions reveal">
+          <a href="#" id="email-btn" class="btn btn-primary">Email ICONICWEAR</a>
+        </div>
+
+        <div class="social-row reveal" style="margin-top:56px;">
+          <p class="eyebrow" style="margin-bottom:4px;">Follow along</p>
+          <a href="#" id="ig-goodsifyco" class="social-link" target="_blank" rel="noopener">
+            <span>Instagram — GoodsifyCo</span>
+            <span class="social-handle" id="ig-goodsifyco-handle"></span>
+          </a>
+          <a href="#" id="ig-iconicwear" class="social-link" target="_blank" rel="noopener">
+            <span>Instagram — ICONICWEAR</span>
+            <span class="social-handle" id="ig-iconicwear-handle"></span>
+          </a>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="site-footer" id="site-footer"></footer>
+
+  <script src="js/content.js"></script>
+  <script src="js/main.js"></script>
+  <script>
+    document.addEventListener("DOMContentLoaded", () => {
+      document.getElementById("contact-heading").textContent = CONTENT.contact.heading;
+      document.getElementById("contact-sub").textContent = CONTENT.contact.supporting;
+      document.getElementById("email-btn").href = `mailto:${CONTENT.contact.email}`;
+
+      document.getElementById("ig-goodsifyco").href = CONTENT.social.goodsifyco.url;
+      document.getElementById("ig-goodsifyco-handle").textContent = CONTENT.social.goodsifyco.handle;
+      document.getElementById("ig-iconicwear").href = CONTENT.social.iconicwear.url;
+      document.getElementById("ig-iconicwear-handle").textContent = CONTENT.social.iconicwear.handle;
+    });
+  </script>
+</body>
+</html>

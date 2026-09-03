@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>About — ICONICWEAR</title>
+  <meta name="description" content="The story behind ICONICWEAR — a Pakistan-focused streetwear brand built from the ground up.">
+  <meta property="og:title" content="About — ICONICWEAR">
+  <meta property="og:description" content="The story behind ICONICWEAR — a Pakistan-focused streetwear brand built from the ground up.">
+  <meta property="og:type" content="website">
+  <link rel="icon" href="assets/images/icons/favicon.svg" type="image/svg+xml">
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Anton&family=Archivo:wght@400;500;600;700&display=swap" rel="stylesheet">
+
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+
+  <nav class="site-nav" id="site-nav"></nav>
+
+  <main>
+    <header class="page-header container">
+      <p class="eyebrow reveal is-visible" style="margin-bottom:18px;">Our story</p>
+      <h1 class="display reveal is-visible" id="about-heading"></h1>
+    </header>
+
+    <section class="section-tight">
+      <div class="container">
+        <div class="prose reveal" id="about-intro"></div>
+        <div class="about-image reveal" id="about-image"></div>
+      </div>
+    </section>
+
+    <section class="section section-charcoal section-border-top">
+      <div class="container two-col">
+        <div class="reveal">
+          <h2 class="display" id="origin-heading" style="font-size:clamp(2rem,4vw,3rem);"></h2>
+        </div>
+        <div class="prose reveal" id="origin-body"></div>
+      </div>
+    </section>
+
+    <section class="section section-border-top">
+      <div class="container two-col">
+        <div class="reveal">
+          <h2 class="display" id="founder-heading" style="font-size:clamp(2rem,4vw,3rem);"></h2>
+        </div>
+        <div class="prose reveal" id="founder-body"></div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="site-footer" id="site-footer"></footer>
+
+  <script src="js/content.js"></script>
+  <script src="js/main.js"></script>
+  <script>
+    document.addEventListener("DOMContentLoaded", () => {
+      const about = CONTENT.about;
+
+      document.getElementById("about-heading").textContent = about.heading;
+      document.getElementById("about-intro").innerHTML = about.intro.map(p => `<p>${p}</p>`).join("");
+      document.getElementById("origin-heading").textContent = about.origin.heading;
+      document.getElementById("origin-body").innerHTML = about.origin.body.map(p => `<p>${p}</p>`).join("");
+      document.getElementById("founder-heading").textContent = about.founder.heading;
+      document.getElementById("founder-body").innerHTML = about.founder.body.map(p => `<p>${p}</p>`).join("");
+
+      const imgMount = document.getElementById("about-image");
+      const imgWrap = buildImage(about.image, "ICONICWEAR", null);
+      imgWrap.querySelectorAll("img, .placeholder").forEach(el => {
+        el.style.width = "100%";
+        el.style.height = "100%";
+      });
+      while (imgWrap.firstChild) imgMount.appendChild(imgWrap.firstChild);
+
+      initScrollReveal();
+    });
+  </script>
+</body>
+</html>
