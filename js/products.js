@@ -4,7 +4,16 @@
    individual product detail page, all driven by CONTENT.products
    in content.js. Add a new product there and it appears here
    automatically — no changes needed in this file.
+
+   Each product's "images" array is its own, dedicated gallery —
+   this file never mixes images between products.
    ============================================================ */
+
+function priceHTML(product) {
+  return product.price
+    ? product.price
+    : `<span class="tbc">Price — to be confirmed</span>`;
+}
 
 function productCardHTML(product) {
   return `
@@ -14,8 +23,14 @@ function productCardHTML(product) {
         <p class="product-number">${product.id}</p>
         <h3 class="product-name">${product.name}</h3>
         <p class="product-category">${product.category}</p>
+        <div class="product-card-meta">
+          <span class="product-card-price">${priceHTML(product)}</span>
+        </div>
         <p class="product-card-desc">${product.shortDescription}</p>
-        <a href="product.html?id=${encodeURIComponent(product.id)}" class="btn btn-outline">View piece</a>
+        <div class="product-card-actions">
+          <a href="product.html?id=${encodeURIComponent(product.id)}" class="btn btn-outline">View piece</a>
+          <a href="${CONTENT.social.iconicwear.url}" target="_blank" rel="noopener" class="btn btn-primary">${CONTENT.order.label}</a>
+        </div>
       </div>
     </article>
   `;
@@ -36,6 +51,7 @@ function renderProductGrid(mountId, limit) {
     statusBadge.dataset.status = product.status;
     statusBadge.textContent = product.status;
 
+    // This product's own image ONLY — never another product's.
     const imgWrap = buildImage(product.images && product.images[0], product.name, null);
     imgWrap.querySelectorAll("img, .placeholder").forEach((el) => {
       el.style.width = "100%";
@@ -71,10 +87,6 @@ function renderProductDetail() {
   const metaDesc = document.querySelector('meta[name="description"]');
   if (metaDesc) metaDesc.setAttribute("content", product.shortDescription);
 
-  const priceHTML = product.price
-    ? product.price
-    : `<span class="tbc">Price — to be confirmed</span>`;
-
   const sizesHTML = (product.sizes || [])
     .map((s) => `<span class="size-chip">${s}</span>`)
     .join("");
@@ -85,16 +97,17 @@ function renderProductDetail() {
 
   mount.innerHTML = `
     <div class="container">
+      <p class="reveal" style="margin-bottom:28px;"><a href="collection.html" class="btn btn-outline" style="padding:12px 22px;">&larr; Back to collection</a></p>
       <div class="product-detail-layout">
-        <div class="product-gallery">
+        <div class="product-gallery reveal">
           <div class="product-gallery-main" id="gallery-main"></div>
           <div class="product-gallery-thumbs" id="gallery-thumbs">${thumbsHTML}</div>
         </div>
-        <div class="product-info-panel">
+        <div class="product-info-panel reveal">
           <p class="product-info-number">${product.id} — ${product.category}</p>
           <h1 class="display product-info-name">${product.name}</h1>
-          <span class="product-status" data-status="${product.status}" style="position:static;display:inline-block;margin-bottom:20px;">${product.status}</span>
-          <p class="product-info-price">${priceHTML}</p>
+          <span class="status-inline" data-status="${product.status}" style="margin-bottom:20px;display:inline-block;">${product.status}</span>
+          <p class="product-info-price">${priceHTML(product)}</p>
           <p class="product-info-desc">${product.description}</p>
 
           <dl class="spec-table">
@@ -106,7 +119,17 @@ function renderProductDetail() {
           <p class="eyebrow" style="margin-bottom:12px;">Available sizes</p>
           <div class="size-list">${sizesHTML}</div>
 
-          <a href="contact.html" class="btn btn-primary btn-block">Enquire about this piece</a>
+          <div class="size-guide-box">
+            <h3>${CONTENT.sizeGuide.heading}</h3>
+            <p>${CONTENT.sizeGuide.body}</p>
+          </div>
+
+          <div class="product-actions">
+            <a href="${CONTENT.social.iconicwear.url}" target="_blank" rel="noopener" class="btn btn-primary btn-block">
+              <span class="btn-icon">${ICONS.instagram}</span> ${CONTENT.order.label}
+            </a>
+            <p class="form-note" style="text-align:center;">${CONTENT.order.destinationLabel}</p>
+          </div>
         </div>
       </div>
     </div>
@@ -140,6 +163,7 @@ function renderProductDetail() {
   });
 
   showImage(0);
+  initScrollReveal();
 }
 
 document.addEventListener("DOMContentLoaded", () => {

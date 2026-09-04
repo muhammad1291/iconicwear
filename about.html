@@ -8,7 +8,8 @@
   <meta property="og:title" content="About — ICONICWEAR">
   <meta property="og:description" content="The story behind ICONICWEAR — a Pakistan-focused streetwear brand built from the ground up.">
   <meta property="og:type" content="website">
-  <link rel="icon" href="assets/images/icons/favicon.svg" type="image/svg+xml">
+  <link rel="icon" href="assets/images/icons/favicon-32.png" type="image/png">
+  <link rel="apple-touch-icon" href="assets/images/icons/apple-touch-icon.png">
 
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -34,11 +35,11 @@
     </section>
 
     <section class="section section-charcoal section-border-top">
-      <div class="container two-col">
-        <div class="reveal">
-          <h2 class="display" id="origin-heading" style="font-size:clamp(2rem,4vw,3rem);"></h2>
+      <div class="container">
+        <div class="section-head reveal">
+          <h2 class="display section-heading" id="journey-heading" style="font-size:clamp(2rem,4vw,3.2rem);"></h2>
         </div>
-        <div class="prose reveal" id="origin-body"></div>
+        <div class="timeline reveal" id="journey-timeline"></div>
       </div>
     </section>
 
@@ -48,6 +49,16 @@
           <h2 class="display" id="founder-heading" style="font-size:clamp(2rem,4vw,3rem);"></h2>
         </div>
         <div class="prose reveal" id="founder-body"></div>
+      </div>
+    </section>
+
+    <section class="section section-charcoal section-border-top">
+      <div class="container">
+        <div class="section-head reveal">
+          <h2 class="display section-heading" id="process-heading" style="font-size:clamp(2rem,4vw,3.2rem);"></h2>
+          <p class="lede">From an Instagram message to a piece at your door.</p>
+        </div>
+        <div class="process-grid reveal" id="process-grid"></div>
       </div>
     </section>
   </main>
@@ -62,10 +73,6 @@
 
       document.getElementById("about-heading").textContent = about.heading;
       document.getElementById("about-intro").innerHTML = about.intro.map(p => `<p>${p}</p>`).join("");
-      document.getElementById("origin-heading").textContent = about.origin.heading;
-      document.getElementById("origin-body").innerHTML = about.origin.body.map(p => `<p>${p}</p>`).join("");
-      document.getElementById("founder-heading").textContent = about.founder.heading;
-      document.getElementById("founder-body").innerHTML = about.founder.body.map(p => `<p>${p}</p>`).join("");
 
       const imgMount = document.getElementById("about-image");
       const imgWrap = buildImage(about.image, "ICONICWEAR", null);
@@ -74,6 +81,33 @@
         el.style.height = "100%";
       });
       while (imgWrap.firstChild) imgMount.appendChild(imgWrap.firstChild);
+
+      // Our journey timeline
+      document.getElementById("journey-heading").textContent = about.journeyHeading;
+      document.getElementById("journey-timeline").innerHTML = about.journey.map(item => `
+        <div class="timeline-item">
+          <div class="timeline-year">${item.year}</div>
+          <div class="timeline-body">
+            <h3>${item.title}</h3>
+            <p>${item.body}</p>
+          </div>
+        </div>
+      `).join("");
+
+      // Founder
+      document.getElementById("founder-heading").textContent = about.founder.heading;
+      document.getElementById("founder-body").innerHTML = about.founder.body.map(p => `<p>${p}</p>`).join("");
+
+      // Order process
+      document.getElementById("process-heading").textContent = about.orderProcessHeading;
+      document.getElementById("process-grid").innerHTML = about.orderProcess.map(step => `
+        <div class="process-step">
+          <span class="process-step-number">${step.step}</span>
+          <span class="process-icon">${ICONS[step.icon] || ICONS.box}</span>
+          <h3>${step.title}</h3>
+          <p>${step.body}</p>
+        </div>
+      `).join("");
 
       initScrollReveal();
     });

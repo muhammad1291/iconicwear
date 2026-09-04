@@ -9,7 +9,8 @@
   <meta property="og:description" content="ICONICWEAR is a Pakistan-focused streetwear brand building its first signature collection.">
   <meta property="og:type" content="website">
   <meta property="og:image" content="assets/images/banners/banner-01.jpg">
-  <link rel="icon" href="assets/images/icons/favicon.svg" type="image/svg+xml">
+  <link rel="icon" href="assets/images/icons/favicon-32.png" type="image/png">
+  <link rel="apple-touch-icon" href="assets/images/icons/apple-touch-icon.png">
 
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -28,9 +29,9 @@
       <div class="container">
         <div class="section-head reveal">
           <div>
-            <h2 class="display section-heading" id="featured-heading">The first drop</h2>
+            <h2 class="display section-heading" id="featured-heading"></h2>
           </div>
-          <p class="lede">Two signature pieces. One beginning.</p>
+          <p class="lede" id="featured-supporting"></p>
         </div>
       </div>
       <div class="container">
@@ -45,7 +46,7 @@
           <h2 class="display" style="font-size:clamp(2rem,4vw,3.2rem);">Built from the ground up.</h2>
         </div>
         <div class="reveal">
-          <p class="prose">ICONICWEAR was built around a simple idea: streetwear should feel personal. The first drop is the beginning of that journey — a small collection designed to establish the identity of the brand.</p>
+          <p class="prose" id="home-about-blurb"></p>
           <a href="about.html" class="btn btn-outline" style="margin-top:28px;">Read the story</a>
         </div>
       </div>
@@ -57,5 +58,12 @@
   <script src="js/content.js"></script>
   <script src="js/main.js"></script>
   <script src="js/products.js"></script>
+  <script>
+    document.addEventListener("DOMContentLoaded", () => {
+      document.getElementById("featured-heading").textContent = CONTENT.featuredSection.heading;
+      document.getElementById("featured-supporting").textContent = CONTENT.featuredSection.supporting;
+      document.getElementById("home-about-blurb").textContent = CONTENT.about.intro[0];
+    });
+  </script>
 </body>
 </html>

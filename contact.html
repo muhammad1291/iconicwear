@@ -8,7 +8,8 @@
   <meta property="og:title" content="Contact — ICONICWEAR">
   <meta property="og:description" content="Get in touch with ICONICWEAR for questions, collaborations or general enquiries.">
   <meta property="og:type" content="website">
-  <link rel="icon" href="assets/images/icons/favicon.svg" type="image/svg+xml">
+  <link rel="icon" href="assets/images/icons/favicon-32.png" type="image/png">
+  <link rel="apple-touch-icon" href="assets/images/icons/apple-touch-icon.png">
 
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -28,21 +29,48 @@
     </header>
 
     <section class="section-tight">
-      <div class="container" style="max-width:640px;">
-        <div class="contact-actions reveal">
-          <a href="#" id="email-btn" class="btn btn-primary">Email ICONICWEAR</a>
+      <div class="container two-col">
+        <div class="reveal">
+          <form class="contact-form" id="contact-form">
+            <div class="form-row">
+              <div class="form-field">
+                <label for="cf-name">Your name</label>
+                <input type="text" id="cf-name" name="name" required autocomplete="name">
+              </div>
+              <div class="form-field">
+                <label for="cf-email">Your email</label>
+                <input type="email" id="cf-email" name="email" required autocomplete="email">
+              </div>
+            </div>
+            <div class="form-field">
+              <label for="cf-subject">Subject</label>
+              <input type="text" id="cf-subject" name="subject" required>
+            </div>
+            <div class="form-field">
+              <label for="cf-message">Tell us more</label>
+              <textarea id="cf-message" name="message" required></textarea>
+            </div>
+            <button type="submit" class="btn btn-primary btn-block">Send message</button>
+            <p class="form-note" id="contact-form-note"></p>
+          </form>
         </div>
 
-        <div class="social-row reveal" style="margin-top:56px;">
-          <p class="eyebrow" style="margin-bottom:4px;">Follow along</p>
-          <a href="#" id="ig-goodsifyco" class="social-link" target="_blank" rel="noopener">
-            <span>Instagram — GoodsifyCo</span>
-            <span class="social-handle" id="ig-goodsifyco-handle"></span>
-          </a>
-          <a href="#" id="ig-iconicwear" class="social-link" target="_blank" rel="noopener">
-            <span>Instagram — ICONICWEAR</span>
-            <span class="social-handle" id="ig-iconicwear-handle"></span>
-          </a>
+        <div class="reveal">
+          <div class="contact-actions">
+            <a href="#" id="email-btn" class="btn btn-outline">Email ICONICWEAR</a>
+          </div>
+
+          <div class="social-row" style="margin-top:40px;">
+            <p class="eyebrow" style="margin-bottom:4px;">Follow along</p>
+            <a href="#" id="ig-goodsifyco" class="social-link" target="_blank" rel="noopener">
+              <span>Instagram — GoodsifyCo</span>
+              <span class="social-handle" id="ig-goodsifyco-handle"></span>
+            </a>
+            <a href="#" id="ig-iconicwear" class="social-link" target="_blank" rel="noopener">
+              <span>Instagram — ICONICWEAR</span>
+              <span class="social-handle" id="ig-iconicwear-handle"></span>
+            </a>
+          </div>
         </div>
       </div>
     </section>
@@ -56,12 +84,27 @@
     document.addEventListener("DOMContentLoaded", () => {
       document.getElementById("contact-heading").textContent = CONTENT.contact.heading;
       document.getElementById("contact-sub").textContent = CONTENT.contact.supporting;
+      document.getElementById("contact-form-note").textContent = CONTENT.contact.formNote;
       document.getElementById("email-btn").href = `mailto:${CONTENT.contact.email}`;
+      document.getElementById("email-btn").innerHTML = `<span class="btn-icon">${ICONS.mail}</span> Email ICONICWEAR`;
 
       document.getElementById("ig-goodsifyco").href = CONTENT.social.goodsifyco.url;
       document.getElementById("ig-goodsifyco-handle").textContent = CONTENT.social.goodsifyco.handle;
       document.getElementById("ig-iconicwear").href = CONTENT.social.iconicwear.url;
       document.getElementById("ig-iconicwear-handle").textContent = CONTENT.social.iconicwear.handle;
+
+      const form = document.getElementById("contact-form");
+      form.addEventListener("submit", (e) => {
+        e.preventDefault();
+        const name = document.getElementById("cf-name").value;
+        const email = document.getElementById("cf-email").value;
+        const subject = document.getElementById("cf-subject").value;
+        const message = document.getElementById("cf-message").value;
+
+        const body = `Name: ${name}\nEmail: ${email}\n\n${message}`;
+        const mailto = `mailto:${CONTENT.contact.email}?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
+        window.location.href = mailto;
+      });
     });
   </script>
 </body>

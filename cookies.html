@@ -3,9 +3,9 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Returns & Exchanges — ICONICWEAR</title>
-  <meta name="description" content="Returns and exchanges information for ICONICWEAR orders.">
-  <meta property="og:title" content="Returns & Exchanges — ICONICWEAR">
+  <title>Cookie Policy — ICONICWEAR</title>
+  <meta name="description" content="What this website actually uses browser storage for.">
+  <meta property="og:title" content="Cookie Policy — ICONICWEAR">
   <meta property="og:type" content="website">
   <link rel="icon" href="assets/images/icons/favicon-32.png" type="image/png">
   <link rel="apple-touch-icon" href="assets/images/icons/apple-touch-icon.png">
@@ -23,13 +23,18 @@
   <main>
     <header class="page-header container">
       <p class="eyebrow reveal is-visible" style="margin-bottom:18px;">Policy</p>
-      <h1 class="display reveal is-visible" id="returns-heading"></h1>
+      <h1 class="display reveal is-visible" id="cookies-heading"></h1>
+      <p class="lede reveal is-visible" id="cookies-intro" style="margin-top:20px;"></p>
     </header>
 
     <section class="section-tight">
       <div class="container" style="max-width:760px;">
-        <span class="policy-note" id="returns-note"></span>
-        <div class="policy-list" id="returns-list"></div>
+        <div class="policy-list" id="cookies-list"></div>
+
+        <div class="reveal" style="margin-top:40px;">
+          <button class="btn btn-outline" id="reset-cookie-choice">Reset my cookie preference</button>
+          <p class="form-note" id="reset-status" style="margin-top:14px;"></p>
+        </div>
       </div>
     </section>
   </main>
@@ -40,12 +45,17 @@
   <script src="js/main.js"></script>
   <script>
     document.addEventListener("DOMContentLoaded", () => {
-      const r = CONTENT.returns;
-      document.getElementById("returns-heading").textContent = r.heading;
-      document.getElementById("returns-note").textContent = r.note;
-      document.getElementById("returns-list").innerHTML = r.sections
+      const c = CONTENT.cookies;
+      document.getElementById("cookies-heading").textContent = c.heading;
+      document.getElementById("cookies-intro").textContent = c.intro;
+      document.getElementById("cookies-list").innerHTML = c.sections
         .map(sec => `<div class="policy-item"><h3>${sec.title}</h3><p>${sec.body}</p></div>`)
         .join("");
+
+      document.getElementById("reset-cookie-choice").addEventListener("click", () => {
+        localStorage.removeItem("icw-cookie-choice");
+        document.getElementById("reset-status").textContent = "Preference cleared — the cookie notice will show again on your next visit.";
+      });
     });
   </script>
 </body>

@@ -3,9 +3,9 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Shipping — ICONICWEAR</title>
-  <meta name="description" content="Shipping information for ICONICWEAR orders within Pakistan.">
-  <meta property="og:title" content="Shipping — ICONICWEAR">
+  <title>Privacy Policy — ICONICWEAR</title>
+  <meta name="description" content="How ICONICWEAR handles information shared through this website.">
+  <meta property="og:title" content="Privacy Policy — ICONICWEAR">
   <meta property="og:type" content="website">
   <link rel="icon" href="assets/images/icons/favicon-32.png" type="image/png">
   <link rel="apple-touch-icon" href="assets/images/icons/apple-touch-icon.png">
@@ -22,16 +22,13 @@
 
   <main>
     <header class="page-header container">
-      <p class="eyebrow reveal is-visible" style="margin-bottom:18px;">Delivery</p>
-      <h1 class="display reveal is-visible" id="shipping-heading"></h1>
-      <p class="lede reveal is-visible" id="shipping-intro" style="margin-top:20px;"></p>
+      <p class="eyebrow reveal is-visible" style="margin-bottom:18px;" id="privacy-updated"></p>
+      <h1 class="display reveal is-visible" id="privacy-heading"></h1>
     </header>
 
     <section class="section-tight">
       <div class="container" style="max-width:760px;">
-        <p class="prose reveal" id="shipping-estimate" style="margin-bottom:36px;"></p>
-        <span class="policy-note" id="shipping-note"></span>
-        <div class="policy-list" id="shipping-list"></div>
+        <div class="policy-list" id="privacy-list"></div>
       </div>
     </section>
   </main>
@@ -42,12 +39,10 @@
   <script src="js/main.js"></script>
   <script>
     document.addEventListener("DOMContentLoaded", () => {
-      const s = CONTENT.shipping;
-      document.getElementById("shipping-heading").textContent = s.heading;
-      document.getElementById("shipping-intro").textContent = s.intro;
-      document.getElementById("shipping-estimate").textContent = s.estimateNote;
-      document.getElementById("shipping-note").textContent = s.note;
-      document.getElementById("shipping-list").innerHTML = s.sections
+      const p = CONTENT.privacy;
+      document.getElementById("privacy-heading").textContent = p.heading;
+      document.getElementById("privacy-updated").textContent = p.updated;
+      document.getElementById("privacy-list").innerHTML = p.sections
         .map(sec => `<div class="policy-item"><h3>${sec.title}</h3><p>${sec.body}</p></div>`)
         .join("");
     });

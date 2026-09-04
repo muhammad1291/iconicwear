@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>FAQ — ICONICWEAR</title>
+  <meta name="description" content="Frequently asked questions about ordering, shipping, sizes and returns at ICONICWEAR.">
+  <meta property="og:title" content="FAQ — ICONICWEAR">
+  <meta property="og:type" content="website">
+  <link rel="icon" href="assets/images/icons/favicon-32.png" type="image/png">
+  <link rel="apple-touch-icon" href="assets/images/icons/apple-touch-icon.png">
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Anton&family=Archivo:wght@400;500;600;700&display=swap" rel="stylesheet">
+
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+
+  <nav class="site-nav" id="site-nav"></nav>
+
+  <main>
+    <header class="page-header container">
+      <p class="eyebrow reveal is-visible" style="margin-bottom:18px;">Help</p>
+      <h1 class="display reveal is-visible" id="faq-heading"></h1>
+    </header>
+
+    <section class="section-tight">
+      <div class="container" style="max-width:760px;">
+        <div class="faq-list" id="faq-list"></div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="site-footer" id="site-footer"></footer>
+
+  <script src="js/content.js"></script>
+  <script src="js/main.js"></script>
+  <script>
+    document.addEventListener("DOMContentLoaded", () => {
+      document.getElementById("faq-heading").textContent = CONTENT.faq.heading;
+
+      const list = document.getElementById("faq-list");
+      list.innerHTML = CONTENT.faq.items.map((item, i) => `
+        <div class="faq-item" data-index="${i}">
+          <button class="faq-question" aria-expanded="false" aria-controls="faq-answer-${i}">
+            <span>${item.q}</span>
+            <span class="faq-icon" aria-hidden="true"></span>
+          </button>
+          <div class="faq-answer" id="faq-answer-${i}">
+            <div class="faq-answer-inner">
+              <p>${item.a}</p>
+            </div>
+          </div>
+        </div>
+      `).join("");
+
+      list.querySelectorAll(".faq-question").forEach((btn) => {
+        btn.addEventListener("click", () => {
+          const item = btn.closest(".faq-item");
+          const isOpen = item.classList.toggle("is-open");
+          btn.setAttribute("aria-expanded", String(isOpen));
+        });
+      });
+    });
+  </script>
+</body>
+</html>

@@ -8,7 +8,8 @@
   <meta property="og:title" content="Collection — ICONICWEAR">
   <meta property="og:description" content="Browse the ICONICWEAR first drop.">
   <meta property="og:type" content="website">
-  <link rel="icon" href="assets/images/icons/favicon.svg" type="image/svg+xml">
+  <link rel="icon" href="assets/images/icons/favicon-32.png" type="image/png">
+  <link rel="apple-touch-icon" href="assets/images/icons/apple-touch-icon.png">
 
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -23,8 +24,8 @@
   <main>
     <header class="page-header container">
       <p class="eyebrow reveal" style="margin-bottom:18px;">The Collection</p>
-      <h1 class="display reveal">The first drop.</h1>
-      <p class="lede reveal" style="margin-top:20px;">Two signature pieces. One beginning.</p>
+      <h1 class="display reveal" id="collection-heading"></h1>
+      <p class="lede reveal" id="collection-supporting" style="margin-top:20px;"></p>
     </header>
 
     <section class="section-tight">
@@ -41,6 +42,8 @@
   <script src="js/products.js"></script>
   <script>
     document.addEventListener("DOMContentLoaded", () => {
+      document.getElementById("collection-heading").textContent = CONTENT.featuredSection.heading + ".";
+      document.getElementById("collection-supporting").textContent = CONTENT.featuredSection.supporting;
       document.querySelectorAll(".page-header .reveal").forEach(el => el.classList.add("is-visible"));
     });
   </script>
