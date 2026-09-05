@@ -12,7 +12,7 @@
 
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Anton&family=Archivo:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Anton&family=Bebas+Neue&family=Manrope:wght@400;500;600;700;800&display=swap" rel="stylesheet">
 
   <link rel="stylesheet" href="css/style.css">
 </head>
@@ -48,7 +48,13 @@
       document.getElementById("shipping-estimate").textContent = s.estimateNote;
       document.getElementById("shipping-note").textContent = s.note;
       document.getElementById("shipping-list").innerHTML = s.sections
-        .map(sec => `<div class="policy-item"><h3>${sec.title}</h3><p>${sec.body}</p></div>`)
+        .map(sec => {
+          let body = sec.body;
+          if (sec.title === "Shipping Charges") {
+            body = s.charge ? s.charge : "[Add final shipping charge here.]";
+          }
+          return `<div class="policy-item"><h3>${sec.title}</h3><p>${body}</p></div>`;
+        })
         .join("");
     });
   </script>

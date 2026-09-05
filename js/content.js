@@ -37,15 +37,19 @@ const CONTENT = {
 
   /* ---------------------------------------------------------
      HOME / HERO SLIDESHOW
-     Add, remove or reorder banners here. Each banner can have
-     its own title/subtitle. If the image ALREADY has campaign
-     text baked into it, set hasText: true so we don't overlay
-     duplicate text — only the button will show on that slide.
+     IMPORTANT: only banners you've actually uploaded belong
+     here. If you remove one, just delete its object below —
+     don't replace it with a placeholder or reused image.
+
+     Each banner can have its own title/subtitle. If the image
+     ALREADY has campaign text baked into it, set hasText: true
+     so we don't overlay duplicate text — only the button shows.
      position: "left" | "right" controls where the text box sits.
   --------------------------------------------------------- */
   hero: {
     ctaLabel: "Explore the collection",
     ctaHref: "collection.html",
+    pakistanTag: "PAKISTAN / 001",
     banners: [
       {
         image: "assets/images/banners/banner-01.jpg",
@@ -54,10 +58,8 @@ const CONTENT = {
       },
       {
         image: "assets/images/banners/banner-02.jpg",
-        hasText: false,
-        title: "Built from the ground up.",
-        subtitle: "Streetwear made to be worn.",
-        position: "left",
+        hasText: true, // image already contains the "ICONICWEAR — THE FIRST DROP" billboard
+        position: "right",
       },
       {
         image: "assets/images/banners/banner-03.jpg",
@@ -75,7 +77,7 @@ const CONTENT = {
   },
 
   /* ---------------------------------------------------------
-     FEATURED COLLECTION SECTION (Home page)
+     FEATURED COLLECTION SECTION ("First Drop" intro, Home page)
   --------------------------------------------------------- */
   featuredSection: {
     heading: "The first drop",
@@ -83,17 +85,21 @@ const CONTENT = {
   },
 
   /* ---------------------------------------------------------
-     PRODUCTS
-     To add a new product: copy one of the objects below,
-     change the "id" (must be unique, e.g. "ICW-03"), and fill
-     in the fields. It will automatically appear on the
-     Collection page and get its own detail page.
+     HOME — BRAND STORY (short intro block, links to About)
+  --------------------------------------------------------- */
+  homeStory: {
+    eyebrow: "About the brand",
+    heading: "From an idea to ICONICWEAR",
+    body: "Built from the ground up — one collection, one decision at a time. ICONICWEAR is a dedicated streetwear identity, still early in its story.",
+    ctaLabel: "Read our story →",
+    ctaHref: "about.html",
+  },
 
-     IMPORTANT — IMAGE SEPARATION RULE:
+  /* ---------------------------------------------------------
+     PRODUCTS
      Every product has its OWN image folder
      (assets/images/products/<slug>/). Never point two products
-     at the same image folder, and never let one product's
-     "images" array reference another product's files.
+     at the same folder, and never mix images between products.
 
      status options: "AVAILABLE" | "COMING SOON" | "SOLD OUT"
      price: leave as "" until a final price is confirmed — the
@@ -107,13 +113,12 @@ const CONTENT = {
       category: "Premium T-Shirt",
       color: "White",
       material: "100% cotton, 200–220 GSM, soft-touch, pre-shrunk, ribbed crew neck",
-      fit: "Regular / slightly relaxed — not tight, not oversized, not excessively baggy",
+      fit: "Regular / slightly relaxed",
       sizes: ["S", "M", "L", "XL", "XXL"],
       price: "PKR 1,500",
       status: "AVAILABLE",
       shortDescription: "A clean signature tee built around comfort, structure and everyday streetwear.",
-      description: "A clean signature tee designed around comfort, structure and everyday streetwear. The focus is a soft premium feel, a clean silhouette and understated ICONICWEAR branding, finished with a ribbed crew neck. Not tight, not oversized — just right.",
-      // Only images of the Signature Tee live here. Never reuse another product's photos.
+      description: "A clean signature tee designed around comfort, structure and everyday streetwear. The focus is a soft premium feel, a clean silhouette and understated ICONICWEAR branding, finished with a ribbed crew neck.",
       images: [
         "assets/images/products/icw-01/tee-01-flatlay.jpg",
         "assets/images/products/icw-01/tee-02-lifestyle.jpg",
@@ -127,13 +132,12 @@ const CONTENT = {
       category: "Tracksuit",
       color: "Black",
       material: "TBD — final fabric composition to be confirmed",
-      fit: "Relaxed / slightly baggy — not tight, not excessively oversized",
+      fit: "Relaxed / slightly baggy",
       sizes: ["S", "M", "L", "XL", "XXL"],
       price: "PKR 4,000",
       status: "AVAILABLE",
       shortDescription: "A relaxed black tracksuit built around comfort and a clean streetwear silhouette.",
-      description: "The second signature piece from ICONICWEAR. A relaxed black tracksuit — matching jacket and trousers — built around comfort, everyday wear and a clean streetwear silhouette. Not tight, not excessively oversized.",
-      // Only images of the Signature Tracksuit live here. Never reuse another product's photos.
+      description: "The second signature piece from ICONICWEAR. A relaxed black tracksuit — matching jacket and trousers — built around comfort, everyday wear and a clean streetwear silhouette.",
       images: [
         "assets/images/products/icw-02/tracksuit-01-flatlay.jpg",
         "assets/images/products/icw-02/tracksuit-02-lifestyle.jpg",
@@ -152,11 +156,50 @@ const CONTENT = {
 
   /* ---------------------------------------------------------
      ORDER NOW — sends visitors to Instagram to place an order.
-     No checkout, no payment processing on this site.
   --------------------------------------------------------- */
   order: {
     label: "Order now",
     destinationLabel: "via Instagram — @iconicstreetwear.pk",
+  },
+
+  /* ---------------------------------------------------------
+     ORDER JOURNEY (Home page)
+     Each step has a "color" key used only for a small accent
+     (icon + number) — kept muted, not neon.
+  --------------------------------------------------------- */
+  orderJourney: {
+    heading: "The journey of your order",
+    supporting: "From a message on Instagram to a piece at your door.",
+    steps: [
+      {
+        step: "01",
+        icon: "message",
+        color: "blue",
+        title: "Order confirmed",
+        body: "We receive your order through Instagram and confirm the piece, details and delivery address.",
+      },
+      {
+        step: "02",
+        icon: "box",
+        color: "amber",
+        title: "Prepared",
+        body: "Once confirmed, your piece is carefully prepared and packed.",
+      },
+      {
+        step: "03",
+        icon: "route",
+        color: "blueDark",
+        title: "On the move",
+        body: "Your order is handed to our courier and begins its journey to you.",
+      },
+      {
+        step: "04",
+        icon: "pin",
+        color: "green",
+        title: "At your door",
+        body: "Your ICONICWEAR piece arrives at your selected delivery address.",
+      },
+    ],
   },
 
   /* ---------------------------------------------------------
@@ -174,52 +217,45 @@ const CONTENT = {
     journey: [
       {
         year: "2024",
-        title: "GoodsifyCo begins",
-        body: "GoodsifyCo was founded in 2024 as an entrepreneurial project based in Canada. The first products explored through the business included watches and toys.",
+        title: "The idea",
+        body: "GoodsifyCo began as an idea and was under development. The early stage focused on learning ecommerce, testing ideas and figuring out the right direction.",
+        planned: false,
+      },
+      {
+        year: "2025",
+        title: "GoodsifyCo comes to life",
+        body: "GoodsifyCo came to life through ecommerce, including product sourcing and dropshipping, initially focusing on electronics and consumer products such as watches and toys.",
+        planned: false,
       },
       {
         year: "2026",
         title: "A new direction",
-        body: "In 2026, the journey expanded into clothing, starting locally and eventually developing into the dedicated streetwear direction of ICONICWEAR.",
+        body: "GoodsifyCo moved into clothing reselling and dropshipping. During this stage, planning began for a more original, brand-focused direction.",
+        planned: false,
+      },
+      {
+        year: "",
+        title: "The ICONICWEAR idea",
+        body: "The idea developed to take a different road from simple product reselling — building a dedicated streetwear identity with its own products, visual language and direction.",
+        planned: false,
+      },
+      {
+        year: "2027",
+        title: "ICONICWEAR comes to life",
+        body: "A planned future milestone — the next chapter, where ICONICWEAR moves from concept into its own dedicated streetwear identity.",
+        planned: true,
       },
     ],
 
     founder: {
       heading: "The person behind ICONICWEAR",
+      photo: "assets/images/about/founder-01.jpg",
       body: [
         "ICONICWEAR is being built from the ground up with a focus on learning, creating and improving with every step.",
-        "The founder's approach is simple: start small, pay attention to the details and build something that can grow over time. The brand is part of a wider journey into business, design, technology and entrepreneurship.",
+        "The approach is simple: start small, pay attention to the details and build something that can grow over time. It's part of a wider journey into business, design, technology and entrepreneurship.",
         "Instead of pretending everything is already established, ICONICWEAR is intentionally documenting the process of building the brand from its first pieces onward.",
       ],
     },
-
-    orderProcessHeading: "How your order reaches you",
-    orderProcess: [
-      {
-        step: "01",
-        icon: "message",
-        title: "Order received",
-        body: "We receive your order through Instagram and confirm the selected piece, details and delivery address.",
-      },
-      {
-        step: "02",
-        icon: "box",
-        title: "Order packed",
-        body: "Once your order is confirmed, we carefully prepare and pack your piece.",
-      },
-      {
-        step: "03",
-        icon: "truck",
-        title: "Order shipped",
-        body: "Your order is handed over for delivery and begins its journey to you.",
-      },
-      {
-        step: "04",
-        icon: "pin",
-        title: "Delivered",
-        body: "Your ICONICWEAR piece arrives at your selected delivery address.",
-      },
-    ],
   },
 
   /* ---------------------------------------------------------
@@ -253,28 +289,33 @@ const CONTENT = {
   --------------------------------------------------------- */
   shipping: {
     heading: "Shipping",
-    intro: "ICONICWEAR currently focuses on deliveries within Pakistan.",
-    estimateNote: "Orders generally take around 2–5 days to arrive within Pakistan. Please note: delivery times are estimates and are not guaranteed — orders may arrive earlier or may take longer depending on the destination, courier and other delivery conditions.",
+    intro: "ICONICWEAR currently ships within Pakistan only.",
+    estimateNote: "Orders generally take around 2–5 days to arrive within Pakistan. This is an estimate, not a guarantee — delays can occur due to courier availability, destination, weather or other circumstances outside ICONICWEAR's control.",
+    charge: "", // e.g. "PKR 250 flat rate" — leave blank to show "to be confirmed"
     sections: [
       { title: "Processing", body: "[Add final processing time here.]" },
-      { title: "Shipping Charges", body: "[Add final shipping charges here.]" },
-      { title: "Tracking", body: "[Add tracking/courier details here.]" },
+      { title: "Shipping Charges", body: "" }, // filled dynamically from "charge" above
+      { title: "Accurate Information", body: "Please provide an accurate name, phone number and delivery address. Additional costs caused by incorrect information you provide may be your responsibility, where permitted." },
+      { title: "Tracking", body: "Tracking information can be provided when available." },
       { title: "Delivery Coverage", body: "Within Pakistan only, at this time." },
     ],
     note: "POLICY DETAILS — TO BE UPDATED",
   },
 
   /* ---------------------------------------------------------
-     RETURNS & EXCHANGES — edit the placeholders as final policy is confirmed
+     RETURNS & EXCHANGES — small-business-friendly, honest policy
   --------------------------------------------------------- */
   returns: {
     heading: "Returns & Exchanges",
+    intro: "We handle exchange and return requests reasonably, and may ask for photos or other proof to review a request.",
     sections: [
-      { title: "Eligibility", body: "[Add final return eligibility here.]" },
+      { title: "Eligibility", body: "Items considered for exchange should generally be unused, unwashed, unaltered and in original condition, with tags/packaging where applicable." },
       { title: "Exchange Window", body: "[Add final exchange timeframe here.]" },
-      { title: "Damaged or Incorrect Items", body: "[Add final procedure here.]" },
-      { title: "Non-returnable Items", body: "[Add final policy here.]" },
-      { title: "How to Request a Return", body: "Message us on Instagram at @iconicstreetwear.pk with your order details." },
+      { title: "Size Issues", body: "If a different size is needed, an exchange can be considered if the requested size is available." },
+      { title: "Damaged or Incorrect Items", body: "If you receive a damaged or incorrect item, contact us with photos as soon as possible so we can review and resolve it fairly." },
+      { title: "Non-Qualifying Items", body: "Items that are customer-damaged, washed, altered or heavily used may not qualify for exchange." },
+      { title: "How Requests Are Resolved", body: "Where an issue is approved, it's generally resolved through an exchange or another agreed solution rather than an automatic cash refund, subject to applicable consumer laws." },
+      { title: "How to Request a Return or Exchange", body: "Message us on Instagram at @iconicstreetwear.pk with your order details and, if relevant, photos of the item." },
     ],
     note: "POLICY DETAILS — TO BE UPDATED",
   },
@@ -287,36 +328,44 @@ const CONTENT = {
     updated: "Last updated: 2026",
     sections: [
       {
-        title: "Information We Collect",
-        body: "If you use the contact form on this site, your device opens your own email app with your name, email and message pre-filled — this information is sent directly to us via email and is not stored on any server or database operated by this website.",
+        title: "Information You Provide",
+        body: "We only receive information you choose to give us directly — for example, through the contact form on this site, by email, or by messaging us on Instagram to place an order.",
+      },
+      {
+        title: "Contact Form",
+        body: "This is a static website with no backend server. The contact form does not transmit or store data through this website itself — it opens a pre-filled email in your own mail app, which you then choose to send.",
+      },
+      {
+        title: "Email Communications",
+        body: "If you email us, we use that information only to respond to your enquiry.",
+      },
+      {
+        title: "Instagram Communications",
+        body: "If you order or message us through Instagram, that conversation is handled on Meta's platform under Instagram's own privacy policy — we don't control how Instagram handles your data.",
+      },
+      {
+        title: "Order-Related Information",
+        body: "Information you share to place an order (such as your name, address and phone number) is used only to fulfil and deliver that order.",
       },
       {
         title: "How Information Is Used",
-        body: "Any information you choose to send us (for example, via email or Instagram) is used only to respond to your enquiry or process an order you've requested through Instagram.",
-      },
-      {
-        title: "Contact Forms",
-        body: "This is a static website with no backend server. The contact form does not transmit or store data through this website itself — it opens a pre-filled email in your own mail app.",
-      },
-      {
-        title: "Newsletter",
-        body: "If a newsletter sign-up is offered, your email would only be used to send you updates about ICONICWEAR. As this site currently has no backend, no email addresses are stored by this website at this time.",
-      },
-      {
-        title: "Cookies",
-        body: "This website uses your browser's local storage only to remember a couple of simple preferences, such as whether you've dismissed the cookie notice or a promotional popup. See our Cookie Policy for details.",
+        body: "Any information you share with us is used only to respond to your enquiry or process an order you've requested.",
       },
       {
         title: "Third-Party Services",
-        body: "Links to Instagram will take you to Meta's platform, which has its own privacy policy. We don't control how Instagram handles your data.",
+        body: "This website does not use analytics or advertising trackers. Links to Instagram will take you to Meta's platform, which has its own privacy policy.",
       },
       {
-        title: "Data Retention",
-        body: "Since this website does not operate a database, it does not retain personal data. Any information shared with us directly (email or Instagram) is retained only as long as needed to respond to you.",
+        title: "Security & Retention",
+        body: "Since this website does not operate a database, it does not retain personal data. Information shared with us directly (email or Instagram) is kept only as long as needed to respond to you or fulfil an order.",
       },
       {
         title: "Policy Updates",
         body: "This policy may be updated as ICONICWEAR grows. Check back here for the latest version.",
+      },
+      {
+        title: "Contact",
+        body: "Questions about this policy can be sent to shopgoodsifyco@gmail.com or via Instagram at @iconicstreetwear.pk.",
       },
     ],
   },
@@ -355,19 +404,19 @@ const CONTENT = {
       },
       {
         q: "How long does shipping take?",
-        a: "Orders generally take around 2–5 days to arrive within Pakistan. Delivery can sometimes arrive earlier or take longer depending on the destination and courier. These timings are estimates, not an exact guarantee.",
+        a: "Around 2–5 days within Pakistan. This is an estimate and may vary depending on destination and courier conditions.",
       },
       {
         q: "What payment options are available?",
-        a: "Bank transfer is currently available. Cash on Delivery (COD) is not available at the moment. We will update this information when COD becomes available.",
+        a: "Bank transfer is available. Cash on Delivery (COD) is currently unavailable.",
       },
       {
         q: "Where do you ship?",
-        a: "ICONICWEAR currently focuses on deliveries within Pakistan.",
+        a: "Pakistan only.",
       },
       {
         q: "What sizes are available?",
-        a: "Our available sizes will be listed with each product. Final size measurements will be added to our size guide once specifications are finalized.",
+        a: "Sizes are listed with each product. Final measurements will be added once production specifications are finalized.",
       },
       {
         q: "Can I return or exchange my order?",
@@ -377,16 +426,14 @@ const CONTENT = {
   },
 
   /* ---------------------------------------------------------
-     NEWSLETTER (footer section)
-     Honest by design — this is a static site with no backend,
-     so this is a UI-only signup ready to connect to a real
-     email service later.
+     NEWSLETTER (footer + home section)
+     Honest by design — static site, no backend yet.
   --------------------------------------------------------- */
   newsletter: {
     heading: "Stay in the loop",
-    body: "Get updates on new pieces, upcoming drops and ICONICWEAR news.",
+    body: "New pieces. Upcoming drops. ICONICWEAR updates.",
     placeholder: "Enter your email",
-    buttonLabel: "Subscribe",
+    buttonLabel: "Join the list",
     disclaimer: "This site has no backend yet, so subscribing won't currently reach a mailing list — this box is ready to connect to a real email service later.",
   },
 
@@ -396,6 +443,7 @@ const CONTENT = {
   popups: {
     cookieNotice: {
       enabled: true,
+      heading: "We use cookies",
       message: "We use cookies to improve your experience.",
       acceptLabel: "Accept",
       manageLabel: "Manage",
@@ -406,8 +454,8 @@ const CONTENT = {
       discountText: "",
       delayMs: 8000,
       heading: "Join the ICONICWEAR list",
-      body: "Get updates on new pieces, upcoming drops and exclusive announcements.",
-      placeholder: "Enter your email",
+      body: "New pieces. Upcoming drops. Exclusive announcements.",
+      placeholder: "Your email",
       buttonLabel: "Join",
     },
   },

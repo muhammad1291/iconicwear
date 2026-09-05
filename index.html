@@ -14,7 +14,7 @@
 
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Anton&family=Archivo:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Anton&family=Bebas+Neue&family=Manrope:wght@400;500;600;700;800&display=swap" rel="stylesheet">
 
   <link rel="stylesheet" href="css/style.css">
 </head>
@@ -23,9 +23,11 @@
   <nav class="site-nav" id="site-nav"></nav>
 
   <main>
+    <!-- 1. HERO -->
     <section class="hero" id="hero" aria-label="Campaign highlights"></section>
 
-    <section class="section" aria-labelledby="featured-heading">
+    <!-- 2. FIRST DROP (short intro) -->
+    <section class="section-tight" aria-labelledby="featured-heading">
       <div class="container">
         <div class="section-head reveal">
           <div>
@@ -34,23 +36,53 @@
           <p class="lede" id="featured-supporting"></p>
         </div>
       </div>
+    </section>
+
+    <!-- 3. BRAND STORY (off-white contrast section) -->
+    <section class="section section-offwhite section-border-top">
+      <div class="container home-story reveal">
+        <div>
+          <p class="eyebrow" id="story-eyebrow" style="margin-bottom:16px;"></p>
+          <h2 class="display" id="story-heading" style="font-size:clamp(2rem,4.2vw,3.4rem);"></h2>
+        </div>
+        <div>
+          <p class="prose" id="story-body"></p>
+          <a href="about.html" class="home-story-cta" id="story-cta"></a>
+        </div>
+      </div>
+    </section>
+
+    <!-- 4. PRODUCT SHOWCASE -->
+    <section class="section section-border-top">
       <div class="container">
+        <p class="eyebrow reveal" style="margin-bottom:28px;">The collection</p>
         <div class="product-grid" id="home-product-grid"></div>
       </div>
     </section>
 
+    <!-- 5. ORDER JOURNEY -->
     <section class="section section-charcoal section-border-top">
-      <div class="container two-col">
-        <div class="reveal">
-          <p class="eyebrow" style="margin-bottom:16px;">About the brand</p>
-          <h2 class="display" style="font-size:clamp(2rem,4vw,3.2rem);">Built from the ground up.</h2>
+      <div class="container">
+        <div class="section-head reveal">
+          <h2 class="display section-heading" id="journey-heading" style="font-size:clamp(2rem,4vw,3.2rem);"></h2>
+          <p class="lede" id="journey-supporting"></p>
         </div>
-        <div class="reveal">
-          <p class="prose" id="home-about-blurb"></p>
-          <a href="about.html" class="btn btn-outline" style="margin-top:28px;">Read the story</a>
-        </div>
+        <div class="process-grid reveal" id="journey-grid"></div>
       </div>
     </section>
+
+    <!-- 6. FAQ -->
+    <section class="section section-border-top">
+      <div class="container" style="max-width:760px;">
+        <div class="section-head reveal" style="margin-bottom:32px;">
+          <h2 class="display section-heading" id="home-faq-heading" style="font-size:clamp(2rem,4vw,3.2rem);"></h2>
+        </div>
+        <div class="faq-list reveal" id="home-faq-list"></div>
+        <p class="reveal" style="margin-top:32px;"><a href="faq.html" class="btn btn-outline">More questions</a></p>
+      </div>
+    </section>
+
+    <!-- 7. Newsletter + 8. Footer render together below -->
   </main>
 
   <footer class="site-footer" id="site-footer"></footer>
@@ -62,7 +94,29 @@
     document.addEventListener("DOMContentLoaded", () => {
       document.getElementById("featured-heading").textContent = CONTENT.featuredSection.heading;
       document.getElementById("featured-supporting").textContent = CONTENT.featuredSection.supporting;
-      document.getElementById("home-about-blurb").textContent = CONTENT.about.intro[0];
+
+      document.getElementById("story-eyebrow").textContent = CONTENT.homeStory.eyebrow;
+      document.getElementById("story-heading").textContent = CONTENT.homeStory.heading;
+      document.getElementById("story-body").textContent = CONTENT.homeStory.body;
+      const cta = document.getElementById("story-cta");
+      cta.textContent = CONTENT.homeStory.ctaLabel;
+      cta.href = CONTENT.homeStory.ctaHref;
+
+      document.getElementById("journey-heading").textContent = CONTENT.orderJourney.heading;
+      document.getElementById("journey-supporting").textContent = CONTENT.orderJourney.supporting;
+      document.getElementById("journey-grid").innerHTML = CONTENT.orderJourney.steps.map(step => `
+        <div class="process-step" data-color="${step.color}">
+          <span class="process-step-number">${step.step}</span>
+          <span class="process-icon process-icon--${step.color}">${ICONS[step.icon] || ICONS.box}</span>
+          <h3>${step.title}</h3>
+          <p>${step.body}</p>
+        </div>
+      `).join("");
+
+      document.getElementById("home-faq-heading").textContent = CONTENT.faq.heading;
+      renderFAQAccordion("home-faq-list", CONTENT.faq.items.slice(0, 4));
+
+      initScrollReveal();
     });
   </script>
 </body>

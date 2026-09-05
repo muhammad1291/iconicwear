@@ -5,26 +5,34 @@
    ============================================================ */
 
 :root {
-  /* Color */
-  --black: #0b0b0a;
-  --charcoal: #161512;
-  --charcoal-2: #1f1e1a;
+  /* Color — deep charcoal/off-black base, not pure black */
+  --black: #131210;
+  --charcoal: #1c1a17;
+  --charcoal-2: #242220;
   --white: #f3f1ea;
   --grey: #a6a194;
   --grey-dim: #5c594f;
   --off-white: #ece9e0;
   --off-white-text: #14130f;
+  --footer-bg: #17150f;
   --hairline: rgba(243, 241, 234, 0.14);
   --hairline-strong: rgba(243, 241, 234, 0.28);
 
+  /* Small, muted accent colors — used sparingly (Order Journey only) */
+  --accent-blue: #6f8fae;
+  --accent-amber: #c99a5b;
+  --accent-blue-dark: #4c6b8a;
+  --accent-green: #7a9a72;
+
   /* Type */
   --font-display: "Anton", "Archivo Black", Impact, sans-serif;
-  --font-body: "Archivo", "Helvetica Neue", Arial, sans-serif;
+  --font-accent: "Bebas Neue", "Anton", sans-serif;
+  --font-body: "Manrope", "Helvetica Neue", Arial, sans-serif;
 
   /* Layout */
   --max-width: 1440px;
   --gutter: clamp(20px, 4vw, 64px);
-  --nav-height: 76px;
+  --nav-height: 88px;
 
   /* Motion */
   --ease: cubic-bezier(0.22, 1, 0.36, 1);
@@ -167,8 +175,8 @@ body {
 .nav-logo {
   display: flex;
   align-items: center;
-  height: clamp(30px, 4vw, 38px);
-  max-width: 190px;
+  height: clamp(42px, 5.5vw, 54px);
+  max-width: 240px;
 }
 .nav-logo img { height: 100%; width: auto; max-width: 100%; object-fit: contain; }
 .nav-logo .logo-fallback {
@@ -751,7 +759,7 @@ body {
    FOOTER
    ============================================================ */
 .site-footer {
-  background: var(--black);
+  background: var(--footer-bg);
   border-top: 1px solid var(--hairline);
   padding: clamp(56px, 7vw, 96px) 0 32px;
 }
@@ -765,6 +773,7 @@ body {
 
 .footer-brand .display { font-size: 1.8rem; margin-bottom: 14px; }
 .footer-brand p { color: var(--grey); max-width: 32ch; }
+#footer-logo.nav-logo { height: clamp(52px, 7vw, 72px); max-width: 280px; }
 
 .footer-col h4 {
   font-size: 0.72rem;
@@ -1222,3 +1231,151 @@ body {
   color: var(--grey);
 }
 .size-guide-box p { color: var(--grey-dim); font-size: 0.85rem; }
+
+/* ============================================================
+   HERO — small Pakistan identity tag
+   ============================================================ */
+.hero-pakistan-tag {
+  position: absolute;
+  z-index: 3;
+  top: calc(var(--nav-height) + 20px);
+  left: var(--gutter);
+  font-family: var(--font-body);
+  font-weight: 700;
+  font-size: 0.7rem;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--white);
+  background: rgba(19, 18, 16, 0.5);
+  backdrop-filter: blur(4px);
+  border: 1px solid var(--hairline-strong);
+  padding: 7px 13px;
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+}
+.hero-pakistan-tag .flag-dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: var(--accent-green);
+  flex-shrink: 0;
+}
+
+/* ============================================================
+   HOME STORY (off-white contrast section)
+   ============================================================ */
+.home-story {
+  display: grid;
+  grid-template-columns: 0.7fr 1.3fr;
+  gap: clamp(24px, 5vw, 72px);
+  align-items: center;
+}
+.home-story-cta {
+  margin-top: 22px;
+  display: inline-block;
+  font-weight: 700;
+  font-size: 0.85rem;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  border-bottom: 2px solid currentColor;
+  padding-bottom: 4px;
+}
+@media (max-width: 800px) {
+  .home-story { grid-template-columns: 1fr; }
+}
+
+/* ============================================================
+   ORDER JOURNEY — colored step accents (muted, not neon)
+   ============================================================ */
+.process-icon--blue { color: var(--accent-blue); }
+.process-icon--amber { color: var(--accent-amber); }
+.process-icon--blueDark { color: var(--accent-blue-dark); }
+.process-icon--green { color: var(--accent-green); }
+
+.process-step {
+  border-top: 2px solid transparent;
+}
+.process-step[data-color="blue"] { border-top-color: var(--accent-blue); }
+.process-step[data-color="amber"] { border-top-color: var(--accent-amber); }
+.process-step[data-color="blueDark"] { border-top-color: var(--accent-blue-dark); }
+.process-step[data-color="green"] { border-top-color: var(--accent-green); }
+
+/* ============================================================
+   TIMELINE — "planned" future milestone
+   ============================================================ */
+.timeline-item.is-planned {
+  border-top-style: dashed;
+}
+.timeline-item.is-planned .timeline-year { -webkit-text-stroke-color: var(--accent-amber); }
+.planned-tag {
+  display: inline-block;
+  font-size: 0.65rem;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--accent-amber);
+  border: 1px solid var(--accent-amber);
+  padding: 4px 10px;
+  margin-left: 12px;
+  vertical-align: middle;
+}
+
+/* ============================================================
+   FOUNDER — editorial layout (not a profile card)
+   ============================================================ */
+.founder-editorial {
+  display: grid;
+  grid-template-columns: 0.55fr 1.45fr;
+  gap: clamp(28px, 5vw, 64px);
+  align-items: start;
+}
+.founder-photo {
+  aspect-ratio: 3 / 4;
+  overflow: hidden;
+  background: var(--charcoal);
+  filter: grayscale(15%);
+}
+.founder-photo img,
+.founder-photo .placeholder { width: 100%; height: 100%; object-fit: cover; }
+
+@media (max-width: 800px) {
+  .founder-editorial { grid-template-columns: 1fr; }
+  .founder-photo { max-width: 320px; }
+}
+
+/* ============================================================
+   FAQ — numbered questions, distinct typography
+   ============================================================ */
+.faq-question {
+  font-family: var(--font-body);
+  font-weight: 800;
+  text-transform: none;
+  letter-spacing: 0;
+}
+.faq-number {
+  font-family: var(--font-display);
+  color: var(--grey-dim);
+  margin-right: 14px;
+  font-size: 0.85em;
+}
+.faq-answer p {
+  font-family: var(--font-body);
+  font-weight: 400;
+}
+
+/* ============================================================
+   NEWSLETTER + POPUP — distinct graphic display typography
+   ============================================================ */
+.newsletter-copy h3,
+.join-popup h3 {
+  font-family: var(--font-accent);
+  font-weight: 400;
+  letter-spacing: 0.02em;
+  font-size: 2rem;
+}
+
+/* ============================================================
+   HOME — Order Journey section wrapper spacing tweak
+   ============================================================ */
+.process-grid { margin-top: 8px; }

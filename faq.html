@@ -12,7 +12,7 @@
 
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Anton&family=Archivo:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Anton&family=Bebas+Neue&family=Manrope:wght@400;500;600;700;800&display=swap" rel="stylesheet">
 
   <link rel="stylesheet" href="css/style.css">
 </head>
@@ -40,29 +40,7 @@
   <script>
     document.addEventListener("DOMContentLoaded", () => {
       document.getElementById("faq-heading").textContent = CONTENT.faq.heading;
-
-      const list = document.getElementById("faq-list");
-      list.innerHTML = CONTENT.faq.items.map((item, i) => `
-        <div class="faq-item" data-index="${i}">
-          <button class="faq-question" aria-expanded="false" aria-controls="faq-answer-${i}">
-            <span>${item.q}</span>
-            <span class="faq-icon" aria-hidden="true"></span>
-          </button>
-          <div class="faq-answer" id="faq-answer-${i}">
-            <div class="faq-answer-inner">
-              <p>${item.a}</p>
-            </div>
-          </div>
-        </div>
-      `).join("");
-
-      list.querySelectorAll(".faq-question").forEach((btn) => {
-        btn.addEventListener("click", () => {
-          const item = btn.closest(".faq-item");
-          const isOpen = item.classList.toggle("is-open");
-          btn.setAttribute("aria-expanded", String(isOpen));
-        });
-      });
+      renderFAQAccordion("faq-list", CONTENT.faq.items);
     });
   </script>
 </body>

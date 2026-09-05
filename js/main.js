@@ -16,7 +16,37 @@ const ICONS = {
   box: `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M3 8l9-4 9 4-9 4-9-4z"/><path d="M3 8v9l9 4 9-4V8"/><path d="M12 12v9"/></svg>`,
   truck: `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="2" y="7" width="13" height="9"/><path d="M15 10h4l3 3v3h-7z"/><circle cx="7" cy="18" r="1.6"/><circle cx="17.5" cy="18" r="1.6"/></svg>`,
   pin: `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M12 21s7-6.5 7-12a7 7 0 10-14 0c0 5.5 7 12 7 12z"/><circle cx="12" cy="9" r="2.3"/></svg>`,
+  route: `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="5" cy="6" r="2"/><circle cx="19" cy="18" r="2"/><path d="M5 8c0 6 14 2 14 8" stroke-dasharray="2.5 2.5"/></svg>`,
 };
+
+/* ---------- FAQ accordion (shared by index.html + faq.html) ---------- */
+
+function renderFAQAccordion(mountId, items) {
+  const list = document.getElementById(mountId);
+  if (!list) return;
+
+  list.innerHTML = items.map((item, i) => `
+    <div class="faq-item" data-index="${i}">
+      <button class="faq-question" aria-expanded="false" aria-controls="${mountId}-answer-${i}">
+        <span><span class="faq-number">${String(i + 1).padStart(2, "0")}</span>${item.q}</span>
+        <span class="faq-icon" aria-hidden="true"></span>
+      </button>
+      <div class="faq-answer" id="${mountId}-answer-${i}">
+        <div class="faq-answer-inner">
+          <p>${item.a}</p>
+        </div>
+      </div>
+    </div>
+  `).join("");
+
+  list.querySelectorAll(".faq-question").forEach((btn) => {
+    btn.addEventListener("click", () => {
+      const item = btn.closest(".faq-item");
+      const isOpen = item.classList.toggle("is-open");
+      btn.setAttribute("aria-expanded", String(isOpen));
+    });
+  });
+}
 
 /* ---------- Utilities ---------- */
 
@@ -228,6 +258,7 @@ function renderHero() {
 
   mount.innerHTML = `
     <div class="hero-slides">${slidesHTML}</div>
+    <div class="hero-pakistan-tag"><span class="flag-dot"></span>${CONTENT.hero.pakistanTag}</div>
     ${banners.length > 1 ? `<div class="hero-indicators">${indicators}</div>` : ""}
   `;
 
@@ -317,6 +348,7 @@ function initCookieNotice() {
   const el = document.createElement("div");
   el.className = "cookie-notice";
   el.innerHTML = `
+    <p style="font-family:var(--font-body);font-weight:800;text-transform:uppercase;letter-spacing:0.06em;font-size:0.8rem;margin-bottom:8px;color:var(--white);">${cfg.heading || ""}</p>
     <p>${cfg.message}</p>
     <div class="cookie-notice-actions">
       <button class="btn btn-primary" data-choice="accept">${cfg.acceptLabel}</button>

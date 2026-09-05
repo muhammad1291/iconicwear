@@ -13,7 +13,7 @@
 
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Anton&family=Archivo:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Anton&family=Bebas+Neue&family=Manrope:wght@400;500;600;700;800&display=swap" rel="stylesheet">
 
   <link rel="stylesheet" href="css/style.css">
 </head>
@@ -44,21 +44,14 @@
     </section>
 
     <section class="section section-border-top">
-      <div class="container two-col">
-        <div class="reveal">
-          <h2 class="display" id="founder-heading" style="font-size:clamp(2rem,4vw,3rem);"></h2>
-        </div>
-        <div class="prose reveal" id="founder-body"></div>
-      </div>
-    </section>
-
-    <section class="section section-charcoal section-border-top">
       <div class="container">
-        <div class="section-head reveal">
-          <h2 class="display section-heading" id="process-heading" style="font-size:clamp(2rem,4vw,3.2rem);"></h2>
-          <p class="lede">From an Instagram message to a piece at your door.</p>
+        <div class="section-head reveal" style="margin-bottom:36px;">
+          <h2 class="display section-heading" id="founder-heading" style="font-size:clamp(2rem,4vw,3rem);"></h2>
         </div>
-        <div class="process-grid reveal" id="process-grid"></div>
+        <div class="founder-editorial reveal">
+          <div class="founder-photo" id="founder-photo"></div>
+          <div class="prose" id="founder-body"></div>
+        </div>
       </div>
     </section>
   </main>
@@ -85,29 +78,26 @@
       // Our journey timeline
       document.getElementById("journey-heading").textContent = about.journeyHeading;
       document.getElementById("journey-timeline").innerHTML = about.journey.map(item => `
-        <div class="timeline-item">
-          <div class="timeline-year">${item.year}</div>
+        <div class="timeline-item${item.planned ? " is-planned" : ""}">
+          <div class="timeline-year">${item.year || "—"}</div>
           <div class="timeline-body">
-            <h3>${item.title}</h3>
+            <h3>${item.title}${item.planned ? '<span class="planned-tag">Planned</span>' : ""}</h3>
             <p>${item.body}</p>
           </div>
         </div>
       `).join("");
 
-      // Founder
+      // Founder — editorial layout with real photo
       document.getElementById("founder-heading").textContent = about.founder.heading;
       document.getElementById("founder-body").innerHTML = about.founder.body.map(p => `<p>${p}</p>`).join("");
 
-      // Order process
-      document.getElementById("process-heading").textContent = about.orderProcessHeading;
-      document.getElementById("process-grid").innerHTML = about.orderProcess.map(step => `
-        <div class="process-step">
-          <span class="process-step-number">${step.step}</span>
-          <span class="process-icon">${ICONS[step.icon] || ICONS.box}</span>
-          <h3>${step.title}</h3>
-          <p>${step.body}</p>
-        </div>
-      `).join("");
+      const founderMount = document.getElementById("founder-photo");
+      const founderImg = buildImage(about.founder.photo, "The person behind ICONICWEAR", null);
+      founderImg.querySelectorAll("img, .placeholder").forEach(el => {
+        el.style.width = "100%";
+        el.style.height = "100%";
+      });
+      while (founderImg.firstChild) founderMount.appendChild(founderImg.firstChild);
 
       initScrollReveal();
     });
